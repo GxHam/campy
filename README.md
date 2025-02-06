@@ -12,6 +12,7 @@
 ## Installation
 1. Update graphics drivers
 2. Create and activate a new Python 3.7 Anaconda environment:
+- Open Miniforge Prompt or Anaconda Prompt
 ```
 conda create -n campy python=3.7 imageio-ffmpeg matplotlib ffmpeg==4.2.2 -c conda-forge
 conda activate campy
