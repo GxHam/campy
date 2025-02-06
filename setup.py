@@ -11,6 +11,7 @@ setup(
 					'pyserial',
 					'pyyaml',
 					'scikit-image',
+                    'screeninfo'
 					],
 	entry_points={
 		"console_scripts": [
