@@ -36,7 +36,7 @@ pip install -U setuptools
   - Download and install Spinnaker SDK and SpinView software from FLIR's website: 
     https://www.flir.com/support-center/iis/machine-vision/downloads/spinnaker-sdk-and-firmware-download/
   - Manually install binary wheel for PySpin (included in the Spinnaker download)
-    E.g. for Python 3.7 on Windows amd64 system, install "spinnaker_python-3.2.0.62-cp37-cp37m-win_amd64.whl"
+    E.g. for Python 3.7 on Windows amd64 system, install "spinnaker_python-2.3.0.77-cp37-cp37m-win_amd64.whl" or "spinnaker_python-3.2.0.62-cp37-cp37m-win_amd64.whl"
   ```
   cd folder_containing_wheel
   pip3 install <wheel>
