@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import screeninfo
 
 
-def DrawFigure(num, position, screen_index=1):
+def DrawFigure(num, screen_index=1):
     mpl.rcParams['toolbar'] = 'None'
 
     figure = plt.figure(num)
@@ -34,8 +34,8 @@ def DrawFigure(num, position, screen_index=1):
     tile_width = screen_width // grid_size[0]
     tile_height = screen_height // grid_size[1]
 
-    x_pos = (position % grid_size[0]) * tile_width
-    y_pos = (position // grid_size[0]) * tile_height
+    x_pos = ((num-1) % grid_size[0]) * tile_width
+    y_pos = ((num-1) // grid_size[0]) * tile_height
 
     manager = plt.get_current_fig_manager()
     # Adjust position by the screen offset
@@ -49,25 +49,20 @@ def DrawFigure(num, position, screen_index=1):
 
 def DisplayFrames(cam_params, dispQueue):
     n_cam = cam_params['n_cam']
-
     if sys.platform == "win32" and cam_params['cameraMake'] == 'basler':
-        # Display on Basler cameras uses the Pylon image window handled by cameras/basler.py
+	    # Display on Basler cameras uses the Pylon image window handled by cameras/basler.py
         pass
     else:
-        figures = []
-        for i in range(n_cam + 1):
-            figure, imageWindow = DrawFigure(i, i, screen_index=0)  # Specify secondary display
-            figures.append((figure, imageWindow))
-
-        while True:
+        figure, imageWindow = DrawFigure(n_cam+1, screen_index=1) # Specify secondary display
+        
+        while(True):
             try:
                 if dispQueue:
                     img = dispQueue.popleft()
                     try:
-                        for figure, imageWindow in figures:
-                            imageWindow.set_data(img)
-                            figure.canvas.draw()
-                            figure.canvas.flush_events()
+                        imageWindow.set_data(img)
+                        figure.canvas.draw()
+                        figure.canvas.flush_events()
                     except Exception as e:
                         # logging.error('Caught exception at display.py DisplayFrames: {}'.format(e))
                         pass
@@ -75,5 +70,4 @@ def DisplayFrames(cam_params, dispQueue):
                     time.sleep(0.01)
             except KeyboardInterrupt:
                 break
-        for figure, _ in figures:
-            plt.close(figure)
+        plt.close(figure)
