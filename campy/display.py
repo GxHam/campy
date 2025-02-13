@@ -31,11 +31,11 @@ def DrawFigure(num, screen_index=1):
 
     # Calculate position based on grid
     grid_size = (2, 2)  # Example: 2x2 grid
-    tile_width = screen_width // grid_size[0]
+    tile_width = screen_width // 2 // grid_size[0]
     tile_height = screen_height // grid_size[1]
 
-    x_pos = ((num-1) % grid_size[0]) * tile_width
-    y_pos = ((num-1) // grid_size[0]) * tile_height
+    x_pos = ((num-1) % grid_size[0]) * tile_width + screen_width // 2
+    y_pos = ((num-1) // grid_size[0]) * tile_height 
 
     manager = plt.get_current_fig_manager()
     # Adjust position by the screen offset
@@ -53,7 +53,7 @@ def DisplayFrames(cam_params, dispQueue):
 	    # Display on Basler cameras uses the Pylon image window handled by cameras/basler.py
         pass
     else:
-        figure, imageWindow = DrawFigure(n_cam+1, screen_index=1) # Specify secondary display
+        figure, imageWindow = DrawFigure(n_cam+1, screen_index=0) # 0 for secondary display, 1 for primary display
         
         while(True):
             try:
